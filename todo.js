@@ -21,6 +21,7 @@ let submit=()=>{
     localStorage.setItem('todo',todostring);
 }
 
+
 if(todoobject===null || (typeof todoobject['array'][1]==='string'))
 {
     todoobject={};
@@ -34,7 +35,7 @@ for (let i = 0; i < todoobject['array'].length; i++) {
     label.textContent=todoobject['array'][i]['inp'];
     label.setAttribute('for','item');
     li.className='mycheck';
-
+    
     let inp=document.createElement('input');
     inp.setAttribute('id','check');
     inp.setAttribute('type','checkbox');
@@ -48,6 +49,11 @@ for (let i = 0; i < todoobject['array'].length; i++) {
         
     }, 50);
 }
+
+let checklisten=document.querySelectorAll('#check');
+checklisten.forEach((ele)=>{
+    ele.addEventListener('change',submit);
+})
 
 inputspace.addEventListener('click',()=>{
     let find=document.getElementById('message');
@@ -120,6 +126,7 @@ let addfunction=()=>{
     }, 50);
 
     inputvalues.value='';
+    inp.addEventListener('change',submit);
     submit();
 }
 

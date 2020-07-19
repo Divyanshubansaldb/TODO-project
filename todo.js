@@ -12,14 +12,16 @@ let submit=()=>{
     let a=[];
     for (let index = 0; index < ul.children.length; index++) {
         let str=ul.children[index].textContent;
-        a.push(str);
+        let check=ul.children[index].childNodes[0].checked;
+        let obj={inp:str,checked:check};
+        a.push(obj);
     }
     todoobject['array']=a;
     todostring=JSON.stringify(todoobject);
     localStorage.setItem('todo',todostring);
 }
 
-if(todoobject===null)
+if(todoobject===null || (typeof todoobject['array'][1]==='string'))
 {
     todoobject={};
     todoobject['array']=[];
@@ -29,13 +31,14 @@ if(todoobject===null)
 for (let i = 0; i < todoobject['array'].length; i++) {
     let li=document.createElement('li');
     let label=document.createElement('label');
-    label.textContent=todoobject['array'][i];
+    label.textContent=todoobject['array'][i]['inp'];
     label.setAttribute('for','item');
     li.className='mycheck';
 
     let inp=document.createElement('input');
     inp.setAttribute('id','check');
     inp.setAttribute('type','checkbox');
+    inp.checked=todoobject['array'][i]['checked'];
 
     li.appendChild(inp);
     li.appendChild(label);
